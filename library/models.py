@@ -29,6 +29,9 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse("book_detail", kwargs={"pk": self.pk})
     
+    def display_genre(self):
+        return ' , '.join(genre.name for genre in self.genre.all()[:3])
+    
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.RESTRICT, null=True, blank=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for book across the library")
@@ -64,18 +67,18 @@ class BookInstance(models.Model):
         ordering = ['due_back']
         
     def __str__(self):
-        return f'{self.book.title}, {self.id}'
+        return f'{self.book.title}, [{self.id}]'
     
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     
     class Meta:
-        ordering = ['last_name', 'first_name']
+        ordering = ['first_name', 'last_name']
     
     def get_absolute_url(self):
         return reverse("author_detail", kwargs={"pk": self.pk})
     
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'{self.first_name}, {self.last_name}'
     
