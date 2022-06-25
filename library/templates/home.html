@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <div class="introduction">
+          <p>
+            <strong>Why <b>Sun Books</b>? We provide tablets containing several readers to rural schools.</strong>
+            The tablets are solar powered and durable, therefore providing readers for learners cheaply.
+          </p>
+      </div>
+      <div class="dynamic-content-home">
+        <p>Our Records</p>
+        <ul>
+            <li>We currently have <b>{{num_of_books}}</b> Books<li>
+            <li>We currently have <b>{{num_of_book_instances}}</b> Copies<li>
+            <li><b>{{num_of_books}}</b> Books are available<li>
+            <li>We currently have <b>{{num_of_books}}</b> Books<li>
+        </ul>
+      </div>
+{% endblock %}
