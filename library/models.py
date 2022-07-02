@@ -27,10 +27,7 @@ class Book(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("book_detail", kwargs={"pk": self.pk})
-    
-    def display_genre(self):
-        return ' , '.join(genre.name for genre in self.genre.all()[:3])
+        return reverse("book-detail", args=[str(self.id)])
     
 class BookInstance(models.Model):
     book = models.ForeignKey(Book, on_delete=models.RESTRICT, null=True, blank=True)
