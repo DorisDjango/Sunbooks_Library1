@@ -23,17 +23,6 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text="Select a genre for this book", blank=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True)
     
-    def __str__(self):
-        return self.title
-    
-    def get_absolute_url(self):
-        return reverse("book-detail", args=[str(self.id)])
-    
-class BookInstance(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.RESTRICT, null=True, blank=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for book across the library")
-    due_back = models.DateField(null=True, blank=True)
-    
     GRADE_LEVEL = (
         ('1', 'Grade 1'),
         ('2', 'Grade 2'),
@@ -45,6 +34,18 @@ class BookInstance(models.Model):
     )
     
     grade = models.CharField(max_length=1, choices=GRADE_LEVEL, blank=True, default='2', help_text="Grade Level")
+    
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse("book-detail", args=[str(self.id)])
+    
+class BookInstance(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.RESTRICT, null=True, blank=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for book across the library")
+    due_back = models.DateField(null=True, blank=True)
+    
     
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -74,7 +75,7 @@ class Author(models.Model):
         ordering = ['first_name', 'last_name']
     
     def get_absolute_url(self):
-        return reverse("author_detail", kwargs={"pk": self.pk})
+        return reverse("author-detail", kwargs={"pk": self.pk})
     
     def __str__(self):
         return f'{self.first_name}, {self.last_name}'

@@ -16,11 +16,39 @@
             <ul class="sidebar">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'books' %}">Books</a></li>
-                <li><a href="">Authors</a></li>
+                <li><a href="{% url 'authors' %}">Authors</a></li>
             </ul>
             {% endblock %}
-            {% block content %}<!--cintent depends on the template-->{% endblock %}
+            {% block content %}<!--content depends on the template-->{% endblock %}
         </div>
+        <!--
+           {% if books.has_other_pages %}
+              <ul class="pagination justify-content-center">
+                {% if books.has_previous %}
+                  <li>
+                    <a href="?page={{ books.previous_page_number }}">Previous</a>
+                  </li>
+                {% else %}
+                  <li><a href="">No Previous Page</a></li>
+                {% endif %}
+                {% for b in books.paginator.page_range %}
+                   {% if books.number == b %}
+                     <li><a href="#">{{ b }}</li>
+                   {% else %}
+                     <li><a href="?page={{ b }}">{{ b }}</a></li>
+                   {% endif %}
+                {% endfor %}
+                {% if books.has_next %}
+                    <li>
+                        <a href="?page={{ books.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li>No Next Page</li>
+                {% endif %}
+
+              </ul>
+           {% endif %}
+       -->
         
     </body>
 </html>

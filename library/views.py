@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, get_object_or_404
 from .models import Author, BookInstance, Book, Language, Genre
-from django.views import generic
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -27,9 +27,19 @@ def home(request):
 
 def BookList(request):
     book_list = Book.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(book_list, 2)
+    
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        books = paginator.page(1)
+    except EmptyPage:
+        books = paginator.page(paginator.num_pages)
     
     context = {
-        'book_list': book_list
+        'book_list': book_list,
+        'books': books
     }
     return render(request, 'books.html', context=context)
 
@@ -41,6 +51,15 @@ def BookDetail(request,pk=None):
     }
     
     return render(request, 'book_detail.html', context=context)
+
+def AuthorList(request):
+    authors = Author.objects.all()
+    
+    context = {
+        'authors': authors
+    }
+    
+    return render(request, 'authors.html', context=context)
     
 
 
