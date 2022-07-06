@@ -17,7 +17,7 @@ def home(request):
         'num_of_book_instances': num_of_book_instances,
         'num_of_book_instances_available': num_of_book_instances_available,
         'num_of_authors': num_of_authors,
-    } #its closed surely
+    } 
     
     
     
@@ -62,4 +62,11 @@ def AuthorList(request):
     return render(request, 'authors.html', context=context)
     
 
-
+def AuthorDetail(request, pk=None):
+    author_detail = get_object_or_404(Author, pk=pk)
+    
+    context = {
+        'author_detail': author_detail
+    }
+    
+    return render(request, 'author_detail.html', context=context)

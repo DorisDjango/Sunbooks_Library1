@@ -70,6 +70,7 @@ class BookInstance(models.Model):
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    bio = models.CharField(max_length=1000, null=True)
     
     class Meta:
         ordering = ['first_name', 'last_name']

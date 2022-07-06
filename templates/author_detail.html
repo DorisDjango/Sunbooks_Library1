@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content%}
+   <h2>{{ author_detail.first_name}}, {{ author_detail.last_name}}</h2>
+   {% if author_detail.bio %}
+     <p>{{ author_detail.bio}}</p>
+   {% endif%}
+   <!--Will work on displaying each author's book in their detail pages-->
+{% endblock %}

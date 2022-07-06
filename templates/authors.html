@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>Meet Our Authors</p>
+    <h2>Meet Our Authors</h2>
     {% if authors %}
     
-    <ul>
+    <div>
         {% for author in authors %}
-        <li>{{ author.first_name}}, {{author.last_name}}</li>
+        <p><a href="{{author.get_absolute_url}}">{{ author.first_name}}, {{author.last_name}}</a></p>
         {% endfor %}
-    </ul>
+    </div>
        
     {% else %}
-      <p>There are no books in the library!</p>
+      <p>No Authors in our records!</p>
     {% endif %}
 {% endblock %}
