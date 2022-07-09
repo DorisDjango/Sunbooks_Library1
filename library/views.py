@@ -24,24 +24,15 @@ def home(request):
     return render(request, 'home.html', context=context)
 
     
-
 def BookList(request):
-    book_list = Book.objects.all()
-    page = request.GET.get('page', 1)
-    paginator = Paginator(book_list, 2)
-    
-    try:
-        books = paginator.page(page)
-    except PageNotAnInteger:
-        books = paginator.page(1)
-    except EmptyPage:
-        books = paginator.page(paginator.num_pages)
+    books = Book.objects.all()
     
     context = {
-        'book_list': book_list,
         'books': books
     }
+    
     return render(request, 'books.html', context=context)
+
 
 def BookDetail(request,pk=None):
     book_detail = get_object_or_404(Book, pk=pk)
